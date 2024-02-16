@@ -247,7 +247,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Fetch company pages and scrap all pages.')
 
     parser.add_argument('--country', type=str, default='France', help='Name of the country (default: France). KSA for Saudi Arabia')
-    parser.add_argument('--getPages', type=bool, default=False, help='True if you want to get company pages, False if you just want to scrap known pages')
+    parser.add_argument('--p', action='store_true', default=False, help='True if you want to get company pages, False if you just want to scrap known pages')
     args = parser.parse_args()
 
     # Call read_file function with provided arguments
@@ -259,9 +259,9 @@ if __name__ == "__main__":
 
     # Initialize UserAgent with fetched companies and countries
     agent = UserAgent(email, pwd, companies, country)
-
     # Fetch company pages
-    agent.fetch_company_pages()
+    if args.p:
+        agent.fetch_company_pages()
 
     # Scrap all pages
     agent.scrap_all_pages()
