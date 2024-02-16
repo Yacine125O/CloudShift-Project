@@ -184,14 +184,14 @@ class UserAgent:
 
     def set_role_filters(self):
         self.fetch_element(By.XPATH, '//*[@id="company-profile-container"]/section[2]/div/nz-tabset/div/div/div[1]/app-search-company-details-page-employees-section/div/div[1]/app-search-company-details-page-employees-filters/div/div/div[2]/button').click()
-        self.fetch_element(By.XPATH, '//*[@id="cdk-overlay-8"]/div/div/ul/li[1]/div[1]').click()
+        self.fetch_element(By.CLASS_NAME, 'cdk-overlay-pane').find_element(By.TAG_NAME, 'label').click()
 
     def scrap_page(self, page_url):
         self.driver.get(page_url)
         company_name = self.fetch_element(By.XPATH, '//*[@id="company-profile-container"]/section[1]/div[1]/div[1]/div/div').text
         employees = []
         self.set_role_filters()
-        time.sleep(5)
+        time.sleep(3)
         while True:
             contacts_table = self.fetch_element(By.CSS_SELECTOR, '#company-profile-container > section.t-mx-4.t-mb-4._company-page-table.ng-star-inserted > div > nz-tabset > div > div > div.ant-tabs-tabpane.ant-tabs-tabpane-active.ng-star-inserted > app-search-company-details-page-employees-section > div > nz-table > nz-spin > div > div > nz-table-inner-default > div > table > tbody').find_elements(By.TAG_NAME, 'tr')
             for row in contacts_table:
