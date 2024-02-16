@@ -14,7 +14,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-role_filters = ["Directeur Du système  d'information", "DSI", "Head Of Information Technology",
+role_filters = ["Directeur Du système d'information", "DSI", "Head Of Information Technology",
 "Directeur Des Services Numériques",
 "Group CIO",
 "IT Maanager",
@@ -183,14 +183,8 @@ class UserAgent:
         return int(span_text[2]) == int(span_text[4])
 
     def set_role_filters(self):
-        role_filters_dropdown = self.fetch_element(By.XPATH, '//*[@id="company-profile-container"]/section[2]/div/nz-tabset/div/div/div[1]/app-search-company-details-page-employees-section/div/div[1]/app-search-company-details-page-employees-filters/div/div/div[3]/button')
-        role_filters_dropdown.click()
-        role_filters_input = self.fetch_element(By.XPATH, '//*[@id="cdk-overlay-0"]/div/div/app-search-cognism-ng-select/div/ng-select/div/div/div[2]/input')
-        for role in role_filters:
-            role_filters_input.send_keys(role)
-            time.sleep(1)
-            role_filters_input.send_keys(Keys.ENTER)
-            time.sleep(1)
+        self.fetch_element(By.XPATH, '//*[@id="company-profile-container"]/section[2]/div/nz-tabset/div/div/div[1]/app-search-company-details-page-employees-section/div/div[1]/app-search-company-details-page-employees-filters/div/div/div[2]/button').click()
+        self.fetch_element(By.XPATH, '//*[@id="cdk-overlay-8"]/div/div/ul/li[1]/div[1]').click()
 
     def scrap_page(self, page_url):
         self.driver.get(page_url)
@@ -252,7 +246,8 @@ if __name__ == "__main__":
     # Initialize argparse
     parser = argparse.ArgumentParser(description='Fetch company pages and scrap all pages.')
 
-    parser.add_argument('--country', type=str, default='France', help='Name of the country (default: France)')
+    parser.add_argument('--country', type=str, default='France', help='Name of the country (default: France). KSA for Saudi Arabia')
+    parser.add_argument('--getPages', type=bool, default=False, help='True if you want to get company pages, False if you just want to scrap known pages')
     args = parser.parse_args()
 
     # Call read_file function with provided arguments
